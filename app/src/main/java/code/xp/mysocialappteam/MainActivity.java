@@ -19,6 +19,9 @@ import code.xp.mysocialappteam.fragment.YdFragment;
 public class MainActivity extends AppCompatActivity {
 
 
+    /**
+     * 加状态 ，第二次登录直接到数据界面
+     */
     private SharedPreferences sp;
 
     @Override
