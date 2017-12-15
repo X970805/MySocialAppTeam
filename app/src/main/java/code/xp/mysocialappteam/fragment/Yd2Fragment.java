@@ -1,5 +1,6 @@
 package code.xp.mysocialappteam.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import code.xp.mysocialappteam.R;
+import code.xp.mysocialappteam.activity.SecondActivity;
 
 /**
  * Created by dell on 2017/12/15.
@@ -43,7 +45,8 @@ public class Yd2Fragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_experience:
-                Toast.makeText(getActivity(), "进入", Toast.LENGTH_SHORT).show();
+                Intent intent =new Intent(getActivity(), SecondActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

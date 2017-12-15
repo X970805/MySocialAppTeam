@@ -1,5 +1,6 @@
 package code.xp.mysocialappteam;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import code.xp.mysocialappteam.activity.SecondActivity;
 import code.xp.mysocialappteam.fragment.Yd2Fragment;
 import code.xp.mysocialappteam.fragment.YdFragment;
 
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         initView();
         sp = getSharedPreferences("config",MODE_PRIVATE);
         if (sp.getBoolean("flag",false)){
-             return;
+            Intent intent =new Intent(MainActivity.this, SecondActivity.class);
+            startActivity(intent);
         }
         sp.edit().putBoolean("flag",true).commit();
         fragments=new ArrayList<>();

@@ -5,4 +5,5 @@ package code.xp.mysocialappteam.model;
  */
 
 public class MainModel {
+    
 }
