@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import code.xp.mysocialappteam.R;
 import code.xp.mysocialappteam.activity.SecondActivity;
+import code.xp.mysocialappteam.activity.ThridActivity;
 
 /**
  * Created by dell on 2017/12/15.
@@ -40,12 +41,11 @@ public class Yd2Fragment extends Fragment implements View.OnClickListener {
         mExperienceBtn = itemView.findViewById(R.id.btn_experience);
         mExperienceBtn.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_experience:
-                Intent intent =new Intent(getActivity(), SecondActivity.class);
+                Intent intent =new Intent(getActivity(), ThridActivity.class);
                 startActivity(intent);
                 break;
             default:

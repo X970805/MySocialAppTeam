@@ -5,7 +5,7 @@
     android:background="@mipmap/img_splash_guide_second"
     android:layout_height="match_parent">
 
-    <Button6
+    <Button
         android:id="@+id/btn_experience"
         android:layout_width="115dp"
         android:layout_height="40dp"

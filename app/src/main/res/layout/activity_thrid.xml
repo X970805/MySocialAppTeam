@@ -4,12 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="code.xp.mysocialappteam.activity.SecondActivity">
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+    tools:context="code.xp.mysocialappteam.activity.ThridActivity">
 
 </android.support.constraint.ConstraintLayout>
