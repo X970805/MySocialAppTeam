@@ -20,6 +20,10 @@ import code.xp.mysocialappteam.R;
 
 public class Yd2Fragment extends Fragment implements View.OnClickListener {
 
+
+    /**
+     * 立即体验
+     */
     private Button mExperienceBtn;
 
     @Nullable
