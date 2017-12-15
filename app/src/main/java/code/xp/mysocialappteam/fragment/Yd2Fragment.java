@@ -9,12 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
-
-import java.io.IOException;
-
 import code.xp.mysocialappteam.R;
-import code.xp.mysocialappteam.activity.SecondActivity;
 import code.xp.mysocialappteam.activity.ThridActivity;
 
 /**
@@ -47,6 +42,7 @@ public class Yd2Fragment extends Fragment implements View.OnClickListener {
             case R.id.btn_experience:
                 Intent intent =new Intent(getActivity(), ThridActivity.class);
                 startActivity(intent);
+                getActivity().finish();
                 break;
             default:
                 break;
