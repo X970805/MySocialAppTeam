@@ -44,23 +44,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Intent intent = new Intent(MainActivity.this, ThridActivity.class);
                     startActivity(intent);
+                    finish();
+                }
+            }.start();
+        }else {
+            new Thread() {
+                int num = 3;
+                @Override
+                public void run() {
+                    for (int i = num; i > 0; i--) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }.start();
         }
-        new Thread() {
-            int num = 3;
-            @Override
-            public void run() {
-                for (int i = num; i > 0; i--) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                startActivity(intent);
-            }
-        }.start();
+
     }
 }
