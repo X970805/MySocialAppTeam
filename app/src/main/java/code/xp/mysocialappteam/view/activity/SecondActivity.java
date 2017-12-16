@@ -26,12 +26,12 @@ public class SecondActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
         sp = getSharedPreferences("config", MODE_PRIVATE);
         sp.edit().putBoolean("flag", true).commit();
-
         initView();
         fragments = new ArrayList<>();
         YdFragment ydFragment = new YdFragment();

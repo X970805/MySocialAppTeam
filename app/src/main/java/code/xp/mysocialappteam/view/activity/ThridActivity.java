@@ -9,6 +9,10 @@ import android.widget.Toast;
 
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import code.xp.mysocialappteam.R;
 import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
@@ -28,8 +32,10 @@ public class ThridActivity extends AutoLayoutActivity  {
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thrid);
+        EventBus.getDefault().register(this);
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -54,5 +60,14 @@ public class ThridActivity extends AutoLayoutActivity  {
         }
     }
 
+    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    public  void getUUID(String s){
+        System.out.println( s);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

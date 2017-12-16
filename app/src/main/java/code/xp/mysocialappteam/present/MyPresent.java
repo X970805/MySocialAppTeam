@@ -39,11 +39,8 @@ public class MyPresent {
                         @Override
                         public void onNext(YKBean ykBean) {
                             int surfer_id = ykBean.getData().getSurfer_id();
-
-                             c.equipment(surfer_id + "");
-                            System.out.println(surfer_id+"--------------------------------");
+                            c.equipment(surfer_id + "");
                         }
-
                         @Override
                         public void onError(Throwable e) {
                             System.out.println( e);

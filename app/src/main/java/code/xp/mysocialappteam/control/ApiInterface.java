@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by 徐宏福 on 2017/12/15.
@@ -15,5 +16,5 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
     @POST("api/surfers")
-    Observable<YKBean> ykBean(@Field("deviceId") String deviceId);
+    Observable<YKBean> ykBean(@Query("deviceId") String deviceId);
 }

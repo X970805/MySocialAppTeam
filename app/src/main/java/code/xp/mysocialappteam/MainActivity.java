@@ -3,8 +3,11 @@ package code.xp.mysocialappteam;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
@@ -22,13 +25,15 @@ public class MainActivity extends AppCompatActivity implements MyControl {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_Login);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sp = getSharedPreferences("config", MODE_PRIVATE);
+        MyPresent myPresent = new MyPresent(this);
+        myPresent.setequipment(MyApp.getUuid(getBaseContext(), getContentResolver()));
         if (sp.getBoolean("flag", false)) {
             new Thread() {
                 int num = 3;
-
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -44,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements MyControl {
                 }
             }.start();
         } else {
+
             new Thread() {
                 int num = 3;
-
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -62,18 +67,11 @@ public class MainActivity extends AppCompatActivity implements MyControl {
                 }
             }.start();
         }
-
-
-
     }
 
     @Override
     public void equipment(String s) {
-        System.out.println("/////////////////////////////");
-        String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-        System.out.println("_______________" + uuid);
-        MyPresent myPresent = new MyPresent(this);
-        myPresent.setequipment(uuid);
+        EventBus.getDefault().postSticky(s);
     }
 
 }
