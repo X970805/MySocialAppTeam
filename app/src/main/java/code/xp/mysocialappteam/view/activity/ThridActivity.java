@@ -5,16 +5,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import code.xp.mysocialappteam.R;
+import code.xp.mysocialappteam.present.MyPresent;
+import code.xp.mysocialappteam.utils.MyApp;
 
-public class ThridActivity extends AutoLayoutActivity implements View.OnClickListener {
+public class ThridActivity extends AutoLayoutActivity implements OnClickListener {
 
     private TextView recommend;
     private TextView attention;
@@ -96,7 +100,7 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
         }
     }
 
-    public void exit() {
+    public void exit(){
         if (!isExit) {
             isExit = true;
             Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();

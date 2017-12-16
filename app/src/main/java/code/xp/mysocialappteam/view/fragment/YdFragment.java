@@ -1,4 +1,4 @@
-package code.xp.mysocialappteam.fragment;
+package code.xp.mysocialappteam.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import code.xp.mysocialappteam.R;
 
 /**
  * Created by dell on 2017/12/15.
+ * 第一次进入时的第一个碎片
  */
 
 public class YdFragment extends Fragment {

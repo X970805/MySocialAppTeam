@@ -1,22 +1,18 @@
 package code.xp.mysocialappteam;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import code.xp.mysocialappteam.control.MyControl;
+import code.xp.mysocialappteam.present.MyPresent;
+import code.xp.mysocialappteam.utils.MyApp;
+import code.xp.mysocialappteam.view.activity.SecondActivity;
+import code.xp.mysocialappteam.view.activity.ThridActivity;
 
-import code.xp.mysocialappteam.activity.SecondActivity;
-import code.xp.mysocialappteam.activity.ThridActivity;
-import code.xp.mysocialappteam.fragment.Yd2Fragment;
-import code.xp.mysocialappteam.fragment.YdFragment;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyControl {
 
 
     /**
@@ -32,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         if (sp.getBoolean("flag", false)) {
             new Thread() {
                 int num = 3;
+
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -46,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
             }.start();
-        }else {
+        } else {
             new Thread() {
                 int num = 3;
+
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -65,5 +63,17 @@ public class MainActivity extends AppCompatActivity {
             }.start();
         }
 
+
+
     }
+
+    @Override
+    public void equipment(String s) {
+        System.out.println("/////////////////////////////");
+        String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+        System.out.println("_______________" + uuid);
+        MyPresent myPresent = new MyPresent(this);
+        myPresent.setequipment(uuid);
+    }
+
 }
