@@ -1,4 +1,4 @@
-package code.xp.mysocialappteam.bean;
+package code.xp.mysocialappteam.view.bean;
 
 /**
  * Created by dell on 2017/12/15.
@@ -6,6 +6,7 @@ package code.xp.mysocialappteam.bean;
 
 public class YKBean {
     /**
+     * 游客bean类
      * code : 200
      * msg : success
      * data : {"surfer_id":151}

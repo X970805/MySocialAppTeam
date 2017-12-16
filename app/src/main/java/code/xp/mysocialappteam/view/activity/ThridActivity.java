@@ -1,9 +1,8 @@
-package code.xp.mysocialappteam.activity;
+package code.xp.mysocialappteam.view.activity;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -11,8 +10,11 @@ import android.widget.Toast;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import code.xp.mysocialappteam.R;
+import code.xp.mysocialappteam.control.MyControl;
+import code.xp.mysocialappteam.present.MyPresent;
+import code.xp.mysocialappteam.utils.MyApp;
 
-public class ThridActivity extends AutoLayoutActivity {
+public class ThridActivity extends AutoLayoutActivity  {
 
     private boolean isExit=false;
 
@@ -51,4 +53,6 @@ public class ThridActivity extends AutoLayoutActivity {
             System.exit(0);
         }
     }
+
+
 }

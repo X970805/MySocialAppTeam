@@ -1,4 +1,4 @@
-package code.xp.mysocialappteam.fragment;
+package code.xp.mysocialappteam.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import code.xp.mysocialappteam.R;
-import code.xp.mysocialappteam.activity.ThridActivity;
+import code.xp.mysocialappteam.view.activity.ThridActivity;
+
 
 /**
  * Created by dell on 2017/12/15.
@@ -20,6 +21,7 @@ public class Yd2Fragment extends Fragment implements View.OnClickListener {
 
 
     /**
+     * 第一次进入时的第二个碎片
      * 立即体验
      */
     private Button mExperienceBtn;

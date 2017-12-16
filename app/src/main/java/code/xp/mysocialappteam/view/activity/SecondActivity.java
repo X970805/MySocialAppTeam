@@ -1,4 +1,5 @@
-package code.xp.mysocialappteam.activity;
+package code.xp.mysocialappteam.view.activity;
+
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,13 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
-import code.xp.mysocialappteam.R;
-import code.xp.mysocialappteam.fragment.Yd2Fragment;
-import code.xp.mysocialappteam.fragment.YdFragment;
 
-public class SecondActivity extends AppCompatActivity {
+import code.xp.mysocialappteam.R;
+import code.xp.mysocialappteam.control.MyControl;
+import code.xp.mysocialappteam.present.MyPresent;
+import code.xp.mysocialappteam.utils.MyApp;
+import code.xp.mysocialappteam.view.fragment.Yd2Fragment;
+import code.xp.mysocialappteam.view.fragment.YdFragment;
+
+public class SecondActivity extends AppCompatActivity  {
     private List<Fragment> fragments;
 
     private ViewPager mVp;
