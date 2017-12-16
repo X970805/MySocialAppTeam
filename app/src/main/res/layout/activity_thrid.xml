@@ -13,24 +13,46 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/recommendMax"
+            android:layout_width="32px"
+            android:layout_height="22px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="103px"
+            android:text="推荐"
+            android:textColor="#333333"
+            android:textSize="16px" />
+
+        <TextView
             android:id="@+id/recommend"
             android:layout_width="28px"
             android:layout_height="20px"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="107px"
-            android:layout_marginTop="16px"
             android:text="推荐"
-            android:textColor="#333333"
-            android:textSize="14px" />
+            android:textColor="#999999"
+            android:textSize="14px"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/attention"
             android:layout_width="28px"
             android:layout_height="20px"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="107px"
-            android:layout_marginTop="16px"
             android:text="关注"
             android:textColor="#999999"
             android:textSize="14px" />
+
+        <TextView
+            android:id="@+id/attentionMax"
+            android:layout_width="32px"
+            android:layout_height="22px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="103px"
+            android:text="关注"
+            android:textColor="#333333"
+            android:textSize="16px"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

@@ -1,7 +1,6 @@
 package code.xp.mysocialappteam.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,7 +22,7 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
     private View leftView;
     private View rightView;
 
-    private boolean isExit=false;
+    private boolean isExit = false;
 
     Handler mHandler = new Handler() {
         @Override
@@ -33,6 +32,9 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
         }
 
     };
+    private TextView recommendMax;
+    private TextView attentionMax;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
         initView();
 
 
+//        viewPager.setAdapter();
     }
 
     private void initView() {
@@ -51,22 +54,30 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
         recommend.setOnClickListener(this);
         attention.setOnClickListener(this);
         viewPager.setOnClickListener(this);
+        recommendMax = (TextView) findViewById(R.id.recommendMax);
+        recommendMax.setOnClickListener(this);
+        attentionMax = (TextView) findViewById(R.id.attentionMax);
+        attentionMax.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recommend:
-                recommend.setTextColor(Color.parseColor("#333333"));
-                attention.setTextColor(Color.parseColor("#999999"));
                 leftView.setVisibility(View.VISIBLE);
                 rightView.setVisibility(View.INVISIBLE);
+                recommendMax.setVisibility(View.VISIBLE);
+                recommend.setVisibility(View.GONE);
+                attention.setVisibility(View.VISIBLE);
+                attentionMax.setVisibility(View.GONE);
                 break;
             case R.id.attention:
-                attention.setTextColor(Color.parseColor("#333333"));
-                recommend.setTextColor(Color.parseColor("#999999"));
                 leftView.setVisibility(View.INVISIBLE);
                 rightView.setVisibility(View.VISIBLE);
+                recommendMax.setVisibility(View.GONE);
+                recommend.setVisibility(View.VISIBLE);
+                attention.setVisibility(View.GONE);
+                attentionMax.setVisibility(View.VISIBLE);
                 break;
             case R.id.viewPager:
 
@@ -74,6 +85,7 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
 
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -84,7 +96,7 @@ public class ThridActivity extends AutoLayoutActivity implements View.OnClickLis
         }
     }
 
-    public void exit(){
+    public void exit() {
         if (!isExit) {
             isExit = true;
             Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
