@@ -31,12 +31,13 @@ public class MyApp extends Application {
 
     private static Retrofit build;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         getrx();
-     //   getpermissions();
+   //     getpermissions(this);
     }
     //权限
 
@@ -72,20 +73,5 @@ public class MyApp extends Application {
         return build;
     }
 
-    public Object getpermissions(Context context) {
-        int permission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.READ_PHONE_STATE);
 
-        if (permission == PackageManager.PERMISSION_GRANTED) {
-            //表示已经授权
-        }
-//PackageManager.PERMISSION_DENIED--->表示权限被否认了
-
-        //   如果在Activity中申请权限可以的调用：
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            permission = checkSelfPermission(Manifest.permission.READ_PHONE_STATE);
-        }
-
-        return permission;
-    }
 }

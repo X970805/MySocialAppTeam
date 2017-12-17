@@ -21,8 +21,6 @@ import code.xp.mysocialappteam.view.activity.SecondActivity;
 import code.xp.mysocialappteam.view.activity.ThridActivity;
 
 public class MainActivity extends AppCompatActivity implements MyControl {
-
-
     /**
      * 加状态 ，第二次登录直接到数据界面
      */
@@ -33,12 +31,24 @@ public class MainActivity extends AppCompatActivity implements MyControl {
         setTheme(R.style.AppTheme_Login);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        tiaozhuan();
+        //6.0的手机状态权限
+
+    }
+
+
+
+
+
+    private void tiaozhuan() {
         sp = getSharedPreferences("config", MODE_PRIVATE);
-        MyPresent myPresent = new MyPresent(this);
-        myPresent.setequipment(MyApp.getUuid(getBaseContext(), getContentResolver()));
         if (sp.getBoolean("flag", false)) {
             new Thread() {
                 int num = 3;
+
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -57,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements MyControl {
 
             new Thread() {
                 int num = 3;
+
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -72,11 +83,6 @@ public class MainActivity extends AppCompatActivity implements MyControl {
                 }
             }.start();
         }
-    }
-
-    @Override
-    public void equipment(String s) {
-        EventBus.getDefault().postSticky(s);
     }
 
 }

@@ -40,16 +40,13 @@ public class MyPresent {
 
                         @Override
                         public void onNext(YKBean ykBean) {
-                            System.out.println(ykBean .getCode()+"____________________-值1");
-                            System.out.println(ykBean.getMsg()+"____________________-值2");
-                            System.out.println(ykBean.getData().getSurfer_id()+"____________________-值3");
                             if (ykBean.getCode() != 200) {
                                 c.equipment(151 + "");
                             } else {
                                 int surfer_id = ykBean.getData().getSurfer_id();
 
                                 c.equipment(surfer_id + "");
-                          }
+                            }
                         }
 
                         @Override
