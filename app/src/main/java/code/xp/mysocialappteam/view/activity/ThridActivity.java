@@ -83,7 +83,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
 //        super.onDestroy();
 //        EventBus.getDefault().unregister(this);
 //    }
-
+//请求权限
     private void initPermission() {
         int permission = ContextCompat.checkSelfPermission(ThridActivity.this, Manifest.permission.READ_PHONE_STATE);
 
@@ -106,20 +106,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
         return false;
     }
 
-    private void explainDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("应用需要获取您的手机型号权限,是否授权？")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //请求权限
-                        ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
 
-                    }
-                }).setNegativeButton("取消", null)
-
-                .create().show();
-    }
 
     /**
      * 请求权限的回调
@@ -129,6 +116,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
      * 参数3：grantResults-->是申请权限后，系统返回的结果，PackageManager.PERMISSION_GRANTED表示授权成功，PackageManager.PERMISSION_DENIED表示授权失败。
      * grantResults和permissions是一一对应的
      */
+  //添加权限的返回码
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
