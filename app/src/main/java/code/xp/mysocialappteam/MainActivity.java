@@ -21,6 +21,8 @@ import code.xp.mysocialappteam.view.activity.SecondActivity;
 import code.xp.mysocialappteam.view.activity.ThridActivity;
 
 public class MainActivity extends AppCompatActivity implements MyControl {
+
+
     /**
      * 加状态 ，第二次登录直接到数据界面
      */
@@ -33,13 +35,10 @@ public class MainActivity extends AppCompatActivity implements MyControl {
         setContentView(R.layout.activity_main);
         sp = getSharedPreferences("config", MODE_PRIVATE);
         MyPresent myPresent = new MyPresent(this);
-        String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-
-     myPresent.setequipment(uuid);
+        myPresent.setequipment(MyApp.getUuid(getBaseContext(), getContentResolver()));
         if (sp.getBoolean("flag", false)) {
             new Thread() {
                 int num = 3;
-
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements MyControl {
 
             new Thread() {
                 int num = 3;
-
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -76,10 +74,8 @@ public class MainActivity extends AppCompatActivity implements MyControl {
         }
     }
 
-
     @Override
     public void equipment(String s) {
-        System.out.println(s + "____");
         EventBus.getDefault().postSticky(s);
     }
 
