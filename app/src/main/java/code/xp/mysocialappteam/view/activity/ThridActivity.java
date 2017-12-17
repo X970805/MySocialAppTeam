@@ -1,26 +1,33 @@
 package code.xp.mysocialappteam.view.activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.zhy.autolayout.AutoLayoutActivity;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+//import org.greenrobot.eventbus.EventBus;
 
 import code.xp.mysocialappteam.R;
 import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
 import code.xp.mysocialappteam.utils.MyApp;
 
-public class ThridActivity extends AutoLayoutActivity  {
+public class ThridActivity extends AutoLayoutActivity implements MyControl {
 
-    private boolean isExit=false;
+    private boolean isExit = false;
+    private boolean granted;
 
     Handler mHandler = new Handler() {
         @Override
@@ -30,13 +37,19 @@ public class ThridActivity extends AutoLayoutActivity  {
         }
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thrid);
-        EventBus.getDefault().register(this);
+    //    EventBus.getDefault().register(this);
+
+        initPermission();
+        // shouldRequest();
+        getquanxian();
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -47,7 +60,7 @@ public class ThridActivity extends AutoLayoutActivity  {
         }
     }
 
-    public void exit(){
+    public void exit() {
         if (!isExit) {
             isExit = true;
             Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
@@ -60,14 +73,86 @@ public class ThridActivity extends AutoLayoutActivity  {
         }
     }
 
-    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
-    public  void getUUID(String s){
-        System.out.println(s);
+//    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+//    public void getUUID(String s) {
+//        System.out.println(s);
+//    }
+
+ //   @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//    }
+
+    private void initPermission() {
+        int permission = ContextCompat.checkSelfPermission(ThridActivity.this, Manifest.permission.READ_PHONE_STATE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            //需不需要解释的dialog
+            if (shouldRequest()) return;
+            //请求权限
+            ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+        }
+    }
+
+    private boolean shouldRequest() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+            //显示一个对话框，给用户解释
+          //  explainDialog();
+            ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+
+            return true;
+        }
+        return false;
+    }
+
+    private void explainDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("应用需要获取您的手机型号权限,是否授权？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //请求权限
+                        ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+
+                    }
+                }).setNegativeButton("取消", null)
+
+                .create().show();
+    }
+
+    /**
+     * 请求权限的回调
+     * <p>
+     * 参数1：requestCode-->是requestPermissions()方法传递过来的请求码。
+     * 参数2：permissions-->是requestPermissions()方法传递过来的需要申请权限
+     * 参数3：grantResults-->是申请权限后，系统返回的结果，PackageManager.PERMISSION_GRANTED表示授权成功，PackageManager.PERMISSION_DENIED表示授权失败。
+     * grantResults和permissions是一一对应的
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0) {
+            //是否授权，可以根据permission作为标记
+            granted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    public void getquanxian() {
+        if (granted) {
+            MyPresent myPresent = new MyPresent(this);
+            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+            myPresent.setequipment(uuid);
+        } else {
+         // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
+            //ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+
+        }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void equipment(String s) {
+        System.out.println(s + "____");
+       // EventBus.getDefault().postSticky(s);
     }
 }
