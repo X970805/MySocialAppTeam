@@ -62,7 +62,7 @@ public class ThridActivity extends AutoLayoutActivity  {
 
     @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
     public  void getUUID(String s){
-        System.out.println( s);
+        System.out.println(s);
     }
 
     @Override

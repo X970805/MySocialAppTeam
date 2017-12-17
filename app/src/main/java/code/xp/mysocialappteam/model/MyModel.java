@@ -19,6 +19,7 @@ public class MyModel {
 
         ApiInterface apiInterface = myrxtrofit.create(ApiInterface.class);
         Observable<YKBean> ykBean = apiInterface.ykBean(s);
+
         return ykBean;
     }
 }

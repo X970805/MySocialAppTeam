@@ -1,10 +1,15 @@
 package code.xp.mysocialappteam;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,8 +21,6 @@ import code.xp.mysocialappteam.view.activity.SecondActivity;
 import code.xp.mysocialappteam.view.activity.ThridActivity;
 
 public class MainActivity extends AppCompatActivity implements MyControl {
-
-
     /**
      * 加状态 ，第二次登录直接到数据界面
      */
@@ -30,10 +33,13 @@ public class MainActivity extends AppCompatActivity implements MyControl {
         setContentView(R.layout.activity_main);
         sp = getSharedPreferences("config", MODE_PRIVATE);
         MyPresent myPresent = new MyPresent(this);
-        myPresent.setequipment(MyApp.getUuid(getBaseContext(), getContentResolver()));
+        String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+
+     myPresent.setequipment(uuid);
         if (sp.getBoolean("flag", false)) {
             new Thread() {
                 int num = 3;
+
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MyControl {
 
             new Thread() {
                 int num = 3;
+
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -69,8 +76,10 @@ public class MainActivity extends AppCompatActivity implements MyControl {
         }
     }
 
+
     @Override
     public void equipment(String s) {
+        System.out.println(s + "____");
         EventBus.getDefault().postSticky(s);
     }
 
