@@ -24,9 +24,8 @@ public class MyPresent {
     }
 
     //通过设备号得到uuid  s为设备号
-    public void setequipment(String s) {
-
-        Observable<YKBean> getequipment = myModel.getequipment(s);
+    public void setequipment(String uuid) {
+        Observable<YKBean> getequipment = myModel.getequipment(uuid);
         if (getequipment == null) {
             return;
         } else {
@@ -37,15 +36,16 @@ public class MyPresent {
                         public void onSubscribe(Disposable d) {
 
                         }
-
                         @Override
                         public void onNext(YKBean ykBean) {
                             if (ykBean.getCode() != 200) {
-                                c.equipment(151 + "");
+                                //c.getYK(151 + "");
+                                c.equipment(151+"");
                             } else {
                                 int surfer_id = ykBean.getData().getSurfer_id();
 
-                                c.equipment(surfer_id + "");
+                               // c.getYK(surfer_id + "");
+                                c.equipment(surfer_id+"");
                             }
                         }
 
@@ -60,7 +60,5 @@ public class MyPresent {
                         }
                     });
         }
-
-
     }
 }

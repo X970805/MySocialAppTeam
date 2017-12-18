@@ -22,8 +22,12 @@ import com.zhy.autolayout.AutoLayoutActivity;
 
 import code.xp.mysocialappteam.R;
 import code.xp.mysocialappteam.control.MyControl;
+import code.xp.mysocialappteam.present.ArticalPresent;
+import code.xp.mysocialappteam.present.HotRecommendPresent;
 import code.xp.mysocialappteam.present.MyPresent;
 import code.xp.mysocialappteam.utils.MyApp;
+import code.xp.mysocialappteam.view.bean.HotRecommendBean;
+import code.xp.mysocialappteam.view.bean.MyArticleBean;
 
 public class ThridActivity extends AutoLayoutActivity implements MyControl {
 
@@ -44,21 +48,14 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thrid);
-    //    EventBus.getDefault().register(this);
 
         int i = Integer.parseInt(Build.VERSION.SDK);
-
-        System.out.println("_______________________"+i);
         if(i<23) {
-
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-
             myPresent.setequipment(uuid);
-        }
-    else{
+        } else{
             initPermission();
-            // shouldRequest();
             getquanxian();
         }
     }
@@ -85,18 +82,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
             System.exit(0);
         }
     }
-
-//    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-//    public void getUUID(String s) {
-//        System.out.println(s);
-//    }
-
- //   @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        EventBus.getDefault().unregister(this);
-//    }
-//请求权限
+    //请求权限
     private void initPermission() {
         int permission = ContextCompat.checkSelfPermission(ThridActivity.this, Manifest.permission.READ_PHONE_STATE);
 
@@ -113,7 +99,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
             //显示一个对话框，给用户解释
           //  explainDialog();
             ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-
             return true;
         }
         return false;
@@ -143,7 +128,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
         if (granted) {
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-            System.out.println("成功------------"+uuid);
             myPresent.setequipment(uuid);
         } else {
          // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
@@ -161,7 +145,36 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
 
     @Override
     public void equipment(String s) {
-        System.out.println(s + "____");
-       // EventBus.getDefault().postSticky(s);
+        ArticalPresent articalPresent=new ArticalPresent(this);
+        articalPresent.setArticalModel("surfer","index2",s,"1");
+        HotRecommendPresent hotRecommendPresent =new HotRecommendPresent(this);
+        hotRecommendPresent.setHotRecommendModel("sufer","index",s,"1","5");
+
     }
+
+    //推荐数据
+    @Override
+    public void getMyArtical(MyArticleBean articleBean) {
+        if (articleBean.getCode()!=200){
+            Toast.makeText(this, ""+articleBean.getMsg(), Toast.LENGTH_SHORT).show();
+        }else {
+            if (articleBean.getData().getArticle()!=null){
+
+            }
+        }
+    }
+
+    //热门推荐，在推荐列表第三列
+    @Override
+    public void getHotRecommend(HotRecommendBean hotRecommendBean) {
+        if (hotRecommendBean.getCode()!=200){
+            Toast.makeText(this, ""+hotRecommendBean.getMsg(), Toast.LENGTH_SHORT).show();
+        }else {
+            if (hotRecommendBean.getData().getTopic()!=null){
+
+            }
+        }
+    }
+
+
 }

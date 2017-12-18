@@ -22,7 +22,7 @@ import code.xp.mysocialappteam.utils.MyApp;
 import code.xp.mysocialappteam.view.activity.SecondActivity;
 import code.xp.mysocialappteam.view.activity.ThridActivity;
 
-public class MainActivity extends AppCompatActivity implements MyControl {
+public class MainActivity extends AppCompatActivity {
     /**
      * 加状态 ，第二次登录直接到数据界面
      */
