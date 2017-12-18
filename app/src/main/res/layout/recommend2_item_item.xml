@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/background_item_item_recommend_topic"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="44px" />
+
+        <TextView
+            android:layout_width="91px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12px"
+            android:gravity="center_horizontal"
+            android:textSize="13px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="14px"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="11px"
+            android:text="0人参与"
+            android:textSize="10px" />
+    </LinearLayout>
+</LinearLayout>

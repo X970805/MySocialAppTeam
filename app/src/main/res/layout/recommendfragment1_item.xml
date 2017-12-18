@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="180px" />
+
+    <TextView
+        android:layout_width="349px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12px"
+        android:textSize="16px" />
+
+    <RelativeLayout
+        android:layout_width="349px"
+        android:layout_height="14px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12px">
+
+        <ImageView
+            android:id="@+id/pingLun"
+            android:layout_width="8px"
+            android:layout_height="7px"
+            android:src="@mipmap/img_comment_item_comment" />
+
+        <TextView
+            android:id="@+id/pingLunNum"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2px"
+            android:layout_toRightOf="@id/pingLun"
+            android:text="0"
+            android:textSize="10px" />
+
+        <ImageView
+            android:id="@+id/xiHuan"
+            android:layout_width="8px"
+            android:layout_height="7.5px"
+            android:layout_marginLeft="8px"
+            android:layout_toRightOf="@id/pingLunNum"
+            android:src="@mipmap/img_admire" />
+
+        <TextView
+            android:id="@+id/xiHuanNum"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2px"
+            android:layout_toRightOf="@id/xiHuan"
+            android:text="0"
+            android:textSize="10px" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8px"
+            android:layout_toRightOf="@id/xiHuanNum"
+            android:textSize="10px" />
+
+        <TextView
+            android:id="@+id/guanZhu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4px"
+            android:text="关注"
+            android:textColor="#f00"
+            android:textSize="10px" />
+
+        <ImageView
+            android:layout_width="12px"
+            android:layout_height="12px"
+            android:layout_toLeftOf="@id/guanZhu"
+            android:src="@mipmap/img_attention" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="12px"
+        android:background="#E5E5E5" />
+</LinearLayout>
