@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.zhy.autolayout.AutoLayoutActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import code.xp.mysocialappteam.utils.MyApp;
 import code.xp.mysocialappteam.view.fragment.Yd2Fragment;
 import code.xp.mysocialappteam.view.fragment.YdFragment;
 
-public class SecondActivity extends AppCompatActivity  {
+public class SecondActivity extends AutoLayoutActivity {
     private List<Fragment> fragments;
 
     private ViewPager mVp;
@@ -26,12 +28,12 @@ public class SecondActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
         sp = getSharedPreferences("config", MODE_PRIVATE);
         sp.edit().putBoolean("flag", true).commit();
-
         initView();
         fragments = new ArrayList<>();
         YdFragment ydFragment = new YdFragment();

@@ -1,32 +1,22 @@
-package code.xp.mysocialappteam.activity;
+package code.xp.mysocialappteam.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import code.xp.mysocialappteam.R;
-import code.xp.mysocialappteam.present.MyPresent;
-import code.xp.mysocialappteam.utils.MyApp;
+//import org.greenrobot.eventbus.EventBus;
 
-public class ThridActivity extends AutoLayoutActivity implements OnClickListener {
 
-    private TextView recommend;
-    private TextView attention;
-    private ViewPager viewPager;
-    private View leftView;
-    private View rightView;
+public class ThridActivity extends AutoLayoutActivity implements MyControl {
 
     private boolean isExit = false;
+    private boolean granted;
 
     Handler mHandler = new Handler() {
         @Override
@@ -36,57 +26,28 @@ public class ThridActivity extends AutoLayoutActivity implements OnClickListener
         }
 
     };
-    private TextView recommendMax;
-    private TextView attentionMax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thrid);
-        initView();
+    //    EventBus.getDefault().register(this);
 
+        int i = Integer.parseInt(Build.VERSION.SDK);
 
-//        viewPager.setAdapter();
-    }
+        System.out.println("_______________________"+i);
+        if(i<23) {
 
-    private void initView() {
-        recommend = findViewById(R.id.recommend);
-        attention = findViewById(R.id.attention);
-        viewPager = findViewById(R.id.viewPager);
-        leftView = findViewById(R.id.leftView);
-        rightView = findViewById(R.id.rightView);
-        recommend.setOnClickListener(this);
-        attention.setOnClickListener(this);
-        viewPager.setOnClickListener(this);
-        recommendMax = (TextView) findViewById(R.id.recommendMax);
-        recommendMax.setOnClickListener(this);
-        attentionMax = (TextView) findViewById(R.id.attentionMax);
-        attentionMax.setOnClickListener(this);
-    }
+            MyPresent myPresent = new MyPresent(this);
+            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.recommend:
-                leftView.setVisibility(View.VISIBLE);
-                rightView.setVisibility(View.INVISIBLE);
-                recommendMax.setVisibility(View.VISIBLE);
-                recommend.setVisibility(View.GONE);
-                attention.setVisibility(View.VISIBLE);
-                attentionMax.setVisibility(View.GONE);
-                break;
-            case R.id.attention:
-                leftView.setVisibility(View.INVISIBLE);
-                rightView.setVisibility(View.VISIBLE);
-                recommendMax.setVisibility(View.GONE);
-                recommend.setVisibility(View.VISIBLE);
-                attention.setVisibility(View.GONE);
-                attentionMax.setVisibility(View.VISIBLE);
-                break;
-            case R.id.viewPager:
-
-                break;
-
+            myPresent.setequipment(uuid);
+        }
+    else{
+            initPermission();
+            // shouldRequest();
+            getquanxian();
         }
     }
 
@@ -100,7 +61,7 @@ public class ThridActivity extends AutoLayoutActivity implements OnClickListener
         }
     }
 
-    public void exit(){
+    public void exit() {
         if (!isExit) {
             isExit = true;
             Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
@@ -111,5 +72,84 @@ public class ThridActivity extends AutoLayoutActivity implements OnClickListener
             startActivity(intent);
             System.exit(0);
         }
+    }
+
+//    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+//    public void getUUID(String s) {
+//        System.out.println(s);
+//    }
+
+ //   @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//    }
+//请求权限
+    private void initPermission() {
+        int permission = ContextCompat.checkSelfPermission(ThridActivity.this, Manifest.permission.READ_PHONE_STATE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            //需不需要解释的dialog
+            if (shouldRequest()) return;
+            //请求权限
+            ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+        }
+    }
+
+    private boolean shouldRequest() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+            //显示一个对话框，给用户解释
+          //  explainDialog();
+            ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+    /**
+     * 请求权限的回调
+     * <p>
+     * 参数1：requestCode-->是requestPermissions()方法传递过来的请求码。
+     * 参数2：permissions-->是requestPermissions()方法传递过来的需要申请权限
+     * 参数3：grantResults-->是申请权限后，系统返回的结果，PackageManager.PERMISSION_GRANTED表示授权成功，PackageManager.PERMISSION_DENIED表示授权失败。
+     * grantResults和permissions是一一对应的
+     */
+  //添加权限的返回码
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0) {
+            //是否授权，可以根据permission作为标记
+            granted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        }
+    }
+
+    public void getquanxian() {
+        if (granted) {
+            MyPresent myPresent = new MyPresent(this);
+            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+            System.out.println("成功------------"+uuid);
+            myPresent.setequipment(uuid);
+        } else {
+         // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
+            //ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+//            MyPresent myPresent = new MyPresent(this);
+//            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+//            System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
+//                    + android.os.Build.VERSION.SDK + ",\n系统版本:"
+//                    );
+//
+//            System.out.println("失败------------"+uuid);
+//            myPresent.setequipment(uuid);
+        }
+    }
+
+    @Override
+    public void equipment(String s) {
+        System.out.println(s + "____");
+       // EventBus.getDefault().postSticky(s);
     }
 }

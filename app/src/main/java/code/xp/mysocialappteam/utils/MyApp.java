@@ -1,9 +1,16 @@
 package code.xp.mysocialappteam.utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -11,6 +18,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import code.xp.mysocialappteam.MainActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,25 +31,31 @@ public class MyApp extends Application {
 
     private static Retrofit build;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         getrx();
+   //     getpermissions(this);
     }
+    //权限
 
 
     @SuppressLint("MissingPermission")
     public static String getUuid(Context context, ContentResolver contentResolver) {
-        final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+        }
 
-        final String tmDevice, tmSerial, tmPhone, androidId;
-        tmDevice = "" + tm.getDeviceId();
-        tmSerial = "" + tm.getSimSerialNumber();
-        androidId = "" + android.provider.Settings.Secure.getString(contentResolver, android.provider.Settings.Secure.ANDROID_ID);
-
-        UUID deviceUuid = new UUID(androidId.hashCode(), ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
-        return deviceUuid.toString();
+        String deviceId = tm.getDeviceId();
+        if (deviceId == null
+                || deviceId.trim().length() == 0) {
+            WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            WifiInfo info = wifi.getConnectionInfo();
+            deviceId = info.getMacAddress();
+        }
+        return deviceId;
     }
 
     public void getrx() {
@@ -58,4 +72,6 @@ public class MyApp extends Application {
     public static Retrofit myrxtrofit() {
         return build;
     }
+
+
 }

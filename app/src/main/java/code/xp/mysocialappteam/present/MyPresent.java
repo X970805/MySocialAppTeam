@@ -22,8 +22,10 @@ public class MyPresent {
         myModel = new MyModel();
         this.c = c;
     }
-//通过设备号得到uuid  s为设备号
+
+    //通过设备号得到uuid  s为设备号
     public void setequipment(String s) {
+
         Observable<YKBean> getequipment = myModel.getequipment(s);
         if (getequipment == null) {
             return;
@@ -38,15 +40,18 @@ public class MyPresent {
 
                         @Override
                         public void onNext(YKBean ykBean) {
-                            int surfer_id = ykBean.getData().getSurfer_id();
+                            if (ykBean.getCode() != 200) {
+                                c.equipment(151 + "");
+                            } else {
+                                int surfer_id = ykBean.getData().getSurfer_id();
 
-                             c.equipment(surfer_id + "");
-                            System.out.println(surfer_id+"--------------------------------");
+                                c.equipment(surfer_id + "");
+                            }
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            System.out.println( e);
+                            System.out.println(e);
                         }
 
                         @Override
