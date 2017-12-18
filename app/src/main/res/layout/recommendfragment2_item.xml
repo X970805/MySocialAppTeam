@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="349px"
         android:layout_height="17px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="17px"
@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="8px"
             android:layout_toRightOf="@id/shubiao"
-            android:background="#8B8B8B"
             android:text="热门话题"
             android:textSize="12px" />
 
@@ -31,14 +30,13 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="8px"
-            android:background="#8B8B8B"
             android:text="查看更多"
             android:textSize="12px" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/hot_receclv"
-        android:layout_width="match_parent"
+        android:layout_width="375px"
         android:layout_height="125px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="19px"></android.support.v7.widget.RecyclerView>

@@ -6,7 +6,8 @@
 
     <ImageView
         android:id="@+id/artical_img"
-        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_width="375px"
         android:layout_height="180px" />
 
     <TextView
@@ -14,14 +15,15 @@
         android:layout_width="349px"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textColor="#000"
         android:layout_marginTop="12px"
+        android:textColor="#000"
         android:textSize="14px" />
 
     <RelativeLayout
         android:layout_width="349px"
         android:layout_height="14px"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
         android:layout_marginTop="12px">
 
         <ImageView
@@ -33,7 +35,7 @@
         <TextView
             android:id="@+id/pingLunNum"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="14px"
             android:layout_marginLeft="2px"
             android:layout_toRightOf="@id/pingLun"
             android:text="0"
@@ -50,7 +52,7 @@
         <TextView
             android:id="@+id/xiHuanNum"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="14px"
             android:layout_marginLeft="2px"
             android:layout_toRightOf="@id/xiHuan"
             android:text="0"
@@ -59,7 +61,7 @@
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="14px"
             android:layout_marginLeft="8px"
             android:layout_toRightOf="@id/xiHuanNum"
             android:textSize="10px" />
@@ -67,7 +69,7 @@
         <TextView
             android:id="@+id/guanZhu"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="14px"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="4px"
             android:text="关注"
