@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import code.xp.mysocialappteam.R;
@@ -64,16 +66,13 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
 
         int i = Integer.parseInt(Build.VERSION.SDK);
 
-        System.out.println("_______________________" + i);
         if (i < 23) {
-
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-
             myPresent.setequipment(uuid);
         } else {
             initPermission();
-            // shouldRequest();
+            //shouldRequest();
             getquanxian();
         }
 
@@ -121,6 +120,12 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         });
     }
 
+    /**
+     * 点击返回键 ，按两次退出程序
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -143,17 +148,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
             System.exit(0);
         }
     }
-
-//    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-//    public void getUUID(String s) {
-//        System.out.println(s);
-//    }
-
-    //   @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        EventBus.getDefault().unregister(this);
-//    }
 //请求权限
     private void initPermission() {
         int permission = ContextCompat.checkSelfPermission(ThridActivity.this, Manifest.permission.READ_PHONE_STATE);
@@ -218,19 +212,10 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
 
     @Override
     public void equipment(String s) {
-        System.out.println(s + "____");
-        // EventBus.getDefault().postSticky(s);
+        EventBus.getDefault().postSticky(s);
     }
 
-    @Override
-    public void getMyArtical(MyArticleBean articleBean) {
 
-    }
-
-    @Override
-    public void getHotRecommend(HotRecommendBean hotRecommendBean) {
-
-    }
 
     @Override
     public void onClick(View view) {

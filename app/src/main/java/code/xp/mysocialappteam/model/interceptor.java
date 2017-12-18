@@ -1,9 +1,5 @@
 package code.xp.mysocialappteam.model;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by 徐宏福 on 2017/12/15.

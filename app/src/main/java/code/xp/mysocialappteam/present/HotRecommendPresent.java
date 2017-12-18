@@ -1,6 +1,7 @@
 package code.xp.mysocialappteam.present;
 
 import code.xp.mysocialappteam.control.MyControl;
+import code.xp.mysocialappteam.control.RecommendControl;
 import code.xp.mysocialappteam.model.HotRecommendModel;
 import code.xp.mysocialappteam.view.bean.HotRecommendBean;
 import code.xp.mysocialappteam.view.bean.MyArticleBean;
@@ -16,8 +17,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HotRecommendPresent {
      private HotRecommendModel hotRecommendModel;
-     private MyControl myControl;
-     public  HotRecommendPresent(MyControl c){
+     private RecommendControl myControl;
+     public  HotRecommendPresent(RecommendControl c){
          this.myControl=c;
          hotRecommendModel=new HotRecommendModel();
      }

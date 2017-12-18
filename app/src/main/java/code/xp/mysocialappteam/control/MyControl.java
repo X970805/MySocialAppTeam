@@ -9,9 +9,4 @@ import code.xp.mysocialappteam.view.bean.MyArticleBean;
 
 public interface MyControl {
     void equipment(String s);
-
-    void getMyArtical(MyArticleBean articleBean);
-
-    void  getHotRecommend(HotRecommendBean hotRecommendBean);
-
 }

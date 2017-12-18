@@ -3,6 +3,7 @@ package code.xp.mysocialappteam.present;
 import org.greenrobot.eventbus.Subscribe;
 
 import code.xp.mysocialappteam.control.MyControl;
+import code.xp.mysocialappteam.control.RecommendControl;
 import code.xp.mysocialappteam.model.ArticalModel;
 import code.xp.mysocialappteam.model.MyModel;
 import code.xp.mysocialappteam.view.bean.MyArticleBean;
@@ -18,8 +19,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ArticalPresent {
     private ArticalModel articalModel;
-    private MyControl myControl;
-    public ArticalPresent(MyControl c) {
+    private RecommendControl myControl;
+    public ArticalPresent(RecommendControl c) {
         articalModel = new ArticalModel();
         this.myControl = c;
     }

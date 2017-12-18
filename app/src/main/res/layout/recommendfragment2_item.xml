@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="349px"
+        android:layout_width="match_parent"
         android:layout_height="17px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="17px"
@@ -37,7 +37,8 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="349px"
+        android:id="@+id/hot_receclv"
+        android:layout_width="match_parent"
         android:layout_height="125px"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="19px"></android.support.v7.widget.RecyclerView>
