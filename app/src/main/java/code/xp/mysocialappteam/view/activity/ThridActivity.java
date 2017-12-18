@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
@@ -45,9 +46,21 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
         setContentView(R.layout.activity_thrid);
     //    EventBus.getDefault().register(this);
 
-        initPermission();
-        // shouldRequest();
-        getquanxian();
+        int i = Integer.parseInt(Build.VERSION.SDK);
+
+        System.out.println("_______________________"+i);
+        if(i<23) {
+
+            MyPresent myPresent = new MyPresent(this);
+            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+
+            myPresent.setequipment(uuid);
+        }
+    else{
+            initPermission();
+            // shouldRequest();
+            getquanxian();
+        }
     }
 
     @Override
@@ -130,11 +143,19 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
         if (granted) {
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+            System.out.println("成功------------"+uuid);
             myPresent.setequipment(uuid);
         } else {
          // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
             //ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-
+//            MyPresent myPresent = new MyPresent(this);
+//            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+//            System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
+//                    + android.os.Build.VERSION.SDK + ",\n系统版本:"
+//                    );
+//
+//            System.out.println("失败------------"+uuid);
+//            myPresent.setequipment(uuid);
         }
     }
 

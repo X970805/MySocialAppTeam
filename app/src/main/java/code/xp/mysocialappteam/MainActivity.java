@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
 import code.xp.mysocialappteam.utils.MyApp;
