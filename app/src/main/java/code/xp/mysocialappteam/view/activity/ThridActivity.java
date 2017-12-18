@@ -145,11 +145,11 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
 
     @Override
     public void equipment(String s) {
+        //获取到游客ID时进行数据请求
         ArticalPresent articalPresent=new ArticalPresent(this);
         articalPresent.setArticalModel("surfer","index2",s,"1");
         HotRecommendPresent hotRecommendPresent =new HotRecommendPresent(this);
         hotRecommendPresent.setHotRecommendModel("sufer","index",s,"1","5");
-
     }
 
     //推荐数据
@@ -159,7 +159,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
             Toast.makeText(this, ""+articleBean.getMsg(), Toast.LENGTH_SHORT).show();
         }else {
             if (articleBean.getData().getArticle()!=null){
-
+                //TODO:适配器
             }
         }
     }
@@ -171,7 +171,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl {
             Toast.makeText(this, ""+hotRecommendBean.getMsg(), Toast.LENGTH_SHORT).show();
         }else {
             if (hotRecommendBean.getData().getTopic()!=null){
-
+                //TODO：适配器进行适配  ，在列表第三列
             }
         }
     }
