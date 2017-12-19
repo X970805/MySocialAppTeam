@@ -13,16 +13,17 @@ import retrofit2.http.Query;
  */
 
 public interface ApiInterface {
+    //游客的id
     @POST("api/surfers")
     Observable<YKBean> ykBean(@Query("deviceId") String deviceId);
 
     //获取推荐数据列表
     @GET("api/articles")
-    Observable<MyArticleBean> getMyArticalBean(@Query("user") String user,@Query("flag") String flag,@Query("fromUid") String uuid,@Query("page") String page);
+    Observable<MyArticleBean> getMyArticalBean(@Query("user") String user, @Query("flag") String flag, @Query("fromUid") String uuid, @Query("page") String page);
 
     //获取热门推荐
     @GET("api/topics")
-    Observable<HotRecommendBean> getHotRecommendBean(@Query("user") String user,@Query("flag") String flag,@Query("fromUid") String uuid,@Query("page") String page,@Query("limit") String limit);
+    Observable<HotRecommendBean> getHotRecommendBean(@Query("user") String user, @Query("flag") String flag, @Query("fromUid") String uuid, @Query("page") String page, @Query("limit") String limit);
 
 
 }

@@ -1,6 +1,7 @@
 package code.xp.mysocialappteam.view.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -61,7 +63,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         setContentView(R.layout.activity_thrid);
         initView();
         //    EventBus.getDefault().register(this);
-
         int i = Integer.parseInt(Build.VERSION.SDK);
 
         if (i < 23) {
@@ -69,11 +70,9 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
             myPresent.setequipment(uuid);
         } else {
+            // onRequestPermissionsResult();
             initPermission();
-            //shouldRequest();
-            getquanxian();
         }
-
         AttentionFragment attentionFragment = new AttentionFragment();
         RecommendFragment recommendFragment = new RecommendFragment();
         ArrayList<Fragment> fragments = new ArrayList<>();
@@ -120,6 +119,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
 
     /**
      * 点击返回键 ，按两次退出程序
+     *
      * @param keyCode
      * @param event
      * @return
@@ -146,28 +146,29 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
             System.exit(0);
         }
     }
-//请求权限
+
+    //请求权限
     private void initPermission() {
         int permission = ContextCompat.checkSelfPermission(ThridActivity.this, Manifest.permission.READ_PHONE_STATE);
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             //需不需要解释的dialog
-            if (shouldRequest()) return;
+            //   if (shouldRequest()) return;
             //请求权限
             ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
         }
     }
 
-    private boolean shouldRequest() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
-            //显示一个对话框，给用户解释
-            //  explainDialog();
-            ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-
-            return true;
-        }
-        return false;
-    }
+//    private boolean shouldRequest() {
+//        if (ActivityCompat.shouldShowRequestPermissionRationale(ThridActivity.this, Manifest.permission.READ_PHONE_STATE)) {
+//            //显示一个对话框，给用户解释
+//
+//         ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+//
+//            return true;
+//        }
+//        return false;
+//    }
 
 
     /**
@@ -182,29 +183,41 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        System.out.println("________" + requestCode + "_________-" + grantResults.length);
+
         if (requestCode == 1 && grantResults.length > 0) {
             //是否授权，可以根据permission作为标记
             granted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+
+            getquanxian();
+
+
         }
     }
 
     public void getquanxian() {
+        System.out.println("判断----------" + granted);
         if (granted) {
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
             System.out.println("成功------------" + uuid);
             myPresent.setequipment(uuid);
         } else {
+            ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+           // granted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
             // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
             //ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-            MyPresent myPresent = new MyPresent(this);
-            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-            System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
-                    + android.os.Build.VERSION.SDK + ",\n系统版本:"
-                    );
-
-            System.out.println("失败------------"+uuid);
-            myPresent.setequipment(uuid);
+//            MyPresent myPresent = new MyPresent(this);
+//            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+//            System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
+//                    + android.os.Build.VERSION.SDK + ",\n系统版本:"
+//            );
+//
+//            System.out.println("失败------------" + uuid);
+//            myPresent.setequipment(uuid);
         }
     }
 
@@ -212,7 +225,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
     public void equipment(String s) {
         EventBus.getDefault().postSticky(s);
     }
-
 
 
     @Override

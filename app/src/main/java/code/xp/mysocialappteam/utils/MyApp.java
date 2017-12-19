@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.mob.MobSDK;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +36,7 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MobSDK.init(this, "20fe4deda8ab4", "c5b034595d6748d6908814b06c933580");
 
         getrx();
    //     getpermissions(this);

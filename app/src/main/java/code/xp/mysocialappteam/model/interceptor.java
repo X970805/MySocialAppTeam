@@ -40,6 +40,52 @@ BODY 请求/响应行 + 头 + 体
         public void log(String message) {
             Timber.tag("okhttp").d(message);
         }
-    });
+    });*/
+
+    //qq登录
+/* Platform platform = ShareSDK.getPlatform(QQ.NAME);
+                if (platform != null) {
+                    platform.setPlatformActionListener(new PlatformActionListener() {
+
+
+
+                        @Override
+                        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                            int i1 = platform.getDb().exportData().hashCode();
+                            System.out.println(i1 + "-----------");
+
+                            Log.i("ssss", platform.getDb().getUserId());
+                            Log.i("ssss", platform.getDb().getToken());
+                            Log.i("ssss", platform.getDb().exportData());
+                            name = platform.getDb().getUserName();
+                            String userId = platform.getDb().getUserId();
+                            System.out.println(userId+"_____________");
+                            userIcon = platform.getDb().getUserIcon();
+                            System.out.println("__________"+name);
+                            System.out.println("----头像-----"+userIcon);
+
+                            tv.setText(name);
+                            Glide.with(MainActivity.this).load(userIcon).into(img);
+                        }
+
+                        @Override
+                        public void onError(Platform platform, int i, Throwable throwable) {
+
+                        }
+
+                        @Override
+                        public void onCancel(Platform platform, int i) {
+
+                        }
+                    });
+                    if (platform.isAuthValid()) {
+                        platform.removeAccount(true);
+                        return;
+                    }
+                    platform.SSOSetting(false);
+                    platform.showUser(null);
+                }
+            }
+
     */
 }

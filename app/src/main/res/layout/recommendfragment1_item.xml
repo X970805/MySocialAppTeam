@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/artical_img"
-        android:scaleType="fitXY"
-        android:layout_width="375px"
-        android:layout_height="180px" />
+        android:layout_width="191dp"
+        android:layout_height="180px"
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/artical_title"

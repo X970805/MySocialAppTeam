@@ -39,13 +39,14 @@ public class MyPresent {
                         @Override
                         public void onNext(YKBean ykBean) {
                             if (ykBean.getCode() != 200) {
-                                //c.getYK(151 + "");
+                               // c.getYK(151 + "");
                                 c.equipment(151+"");
                             } else {
                                 int surfer_id = ykBean.getData().getSurfer_id();
 
                                // c.getYK(surfer_id + "");
                                 c.equipment(surfer_id+"");
+
                             }
                         }
 
