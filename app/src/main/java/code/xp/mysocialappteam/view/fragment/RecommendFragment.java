@@ -44,6 +44,7 @@ public class RecommendFragment extends Fragment implements RecommendControl {
             @Override
             public void onRefresh() {
 
+                mSrlRecommend.setRefreshing(false);
             }
         });
         adapter = new RecyclvAdapter(getActivity());

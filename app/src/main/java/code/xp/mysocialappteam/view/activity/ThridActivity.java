@@ -28,6 +28,9 @@ import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
 import code.xp.mysocialappteam.utils.MyApp;
 import code.xp.mysocialappteam.view.adapter.RecommendFragmentAdapter;
+import code.xp.mysocialappteam.view.bean.HotRecommendBean;
+import code.xp.mysocialappteam.view.bean.MyArticleBean;
+import code.xp.mysocialappteam.view.bean.YKBean;
 import code.xp.mysocialappteam.view.fragment.AttentionFragment;
 import code.xp.mysocialappteam.view.fragment.RecommendFragment;
 
@@ -63,7 +66,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         //    EventBus.getDefault().register(this);
 
         int i = Integer.parseInt(Build.VERSION.SDK);
-
         if (i < 23) {
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
@@ -192,7 +194,6 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         if (granted) {
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-            System.out.println("成功------------" + uuid);
             myPresent.setequipment(uuid);
         } else {
             // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
@@ -202,16 +203,11 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
             System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
                     + android.os.Build.VERSION.SDK + ",\n系统版本:"
                     );
-
-            System.out.println("失败------------"+uuid);
             myPresent.setequipment(uuid);
         }
     }
 
-    @Override
-    public void equipment(String s) {
-        EventBus.getDefault().postSticky(s);
-    }
+
 
 
 
@@ -250,5 +246,14 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         leftView.setOnClickListener(this);
         rightView.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void equipment(YKBean s) {
+        if (s.getCode()!=200){
+            Toast.makeText(this, ""+s.getMsg(), Toast.LENGTH_SHORT).show();
+        }else {
+            EventBus.getDefault().postSticky(s.getData().getSurfer_id()+"");
+        }
     }
 }
