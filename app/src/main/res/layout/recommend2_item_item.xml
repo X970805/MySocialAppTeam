@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="349px"
-    android:layout_height="match_parent"
+    android:layout_width="120px"
+    android:layout_height="125px"
     android:background="@mipmap/background_item_item_recommend_topic"
     android:orientation="vertical">
 
 
     <ImageView
         android:id="@+id/hot_item"
-        android:layout_width="match_parent"
+        android:layout_width="120px"
         android:layout_height="44px" />
 
     <TextView

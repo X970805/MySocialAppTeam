@@ -34,12 +34,17 @@
             android:textSize="12px" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/hot_receclv"
+    <ScrollView
         android:layout_width="375px"
         android:layout_height="125px"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="19px"></android.support.v7.widget.RecyclerView>
+        android:layout_marginTop="19px">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hot_receclv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </ScrollView>
 
     <View
         android:layout_width="match_parent"
