@@ -28,8 +28,6 @@ import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
 import code.xp.mysocialappteam.utils.MyApp;
 import code.xp.mysocialappteam.view.adapter.RecommendFragmentAdapter;
-import code.xp.mysocialappteam.view.bean.HotRecommendBean;
-import code.xp.mysocialappteam.view.bean.MyArticleBean;
 import code.xp.mysocialappteam.view.fragment.AttentionFragment;
 import code.xp.mysocialappteam.view.fragment.RecommendFragment;
 
@@ -199,14 +197,14 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         } else {
             // Toast.makeText(this, "还没有得到手机的状态权限", Toast.LENGTH_SHORT).show();
             //ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-//            MyPresent myPresent = new MyPresent(this);
-//            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-//            System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
-//                    + android.os.Build.VERSION.SDK + ",\n系统版本:"
-//                    );
-//
-//            System.out.println("失败------------"+uuid);
-//            myPresent.setequipment(uuid);
+            MyPresent myPresent = new MyPresent(this);
+            String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
+            System.out.println("手机型号: " + android.os.Build.MODEL + ",\nSDK版本:"
+                    + android.os.Build.VERSION.SDK + ",\n系统版本:"
+                    );
+
+            System.out.println("失败------------"+uuid);
+            myPresent.setequipment(uuid);
         }
     }
 
