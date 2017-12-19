@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/biaoTi"
         android:layout_width="match_parent"
         android:layout_height="44px"
         android:gravity="center_vertical"
@@ -55,8 +55,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/xiaBiao"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/biaoTi">
 
         <View
             android:id="@+id/leftView"
@@ -75,13 +77,32 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/hengXiang"
         android:layout_width="wrap_content"
         android:layout_height="2px"
+        android:layout_below="@id/xiaBiao"
         android:background="#E5E5E5" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"
+        android:layout_below="@id/hengXiang"></android.support.v4.view.ViewPager>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="44px"
+        android:layout_height="44px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="20px"
+        android:src="@mipmap/img_personal_center" />
+
+    <ImageView
+        android:layout_width="44px"
+        android:layout_height="44px"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20px"
+        android:layout_marginRight="20px"
+        android:src="@mipmap/img_publish" />
+</RelativeLayout>
