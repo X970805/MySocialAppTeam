@@ -5,10 +5,10 @@
     android:orientation="vertical">
 
     <ImageView
+        android:scaleType="fitXY"
         android:id="@+id/artical_img"
-        android:layout_width="191dp"
-        android:layout_height="180px"
-        android:scaleType="fitXY" />
+        android:layout_width="375px"
+        android:layout_height="180px" />
 
     <TextView
         android:id="@+id/artical_title"
@@ -23,7 +23,6 @@
         android:layout_width="349px"
         android:layout_height="14px"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
         android:layout_marginTop="12px">
 
         <ImageView

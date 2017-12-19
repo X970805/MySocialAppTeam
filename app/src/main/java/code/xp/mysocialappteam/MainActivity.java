@@ -21,11 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         tiaozhuan();
-        //6.0的手机状态权限
-
     }
 
 
@@ -37,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         if (sp.getBoolean("flag", false)) {
             new Thread() {
                 int num = 3;
-
                 @Override
                 public void run() {
                     for (int i = num; i > 0; i--) {
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }.start();
         } else {
-
             new Thread() {
                 int num = 3;
 
