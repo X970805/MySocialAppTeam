@@ -10,7 +10,8 @@
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
         <item name="windowNoTitle">true</item>
     </style>
-<style name="AppTheme.Login" >
-    <item name="android:windowBackground">@drawable/mytitle</item>
-</style>
+
+    <style name="AppTheme.Login">
+        <item name="android:windowBackground">@drawable/mytitle</item>
+    </style>
 </resources>
