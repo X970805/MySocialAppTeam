@@ -8,18 +8,26 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import code.xp.mysocialappteam.R;
 import code.xp.mysocialappteam.control.RecommendControl;
+import code.xp.mysocialappteam.model.greenDao.User;
+import code.xp.mysocialappteam.model.greenDao.UserDao;
 import code.xp.mysocialappteam.present.ArticalPresent;
 import code.xp.mysocialappteam.present.HotRecommendPresent;
+import code.xp.mysocialappteam.utils.MyApp;
 import code.xp.mysocialappteam.view.adapter.RecyclvAdapter;
 import code.xp.mysocialappteam.view.bean.HotRecommendBean;
 import code.xp.mysocialappteam.view.bean.MyArticleBean;
@@ -32,14 +40,18 @@ public class RecommendFragment extends Fragment implements RecommendControl {
     private RecyclerView mRvRecommend;
     private SwipeRefreshLayout mSrlRecommend;
     private RecyclvAdapter adapter;
+    private User mUser;
+
+    private UserDao userDao;
+    private HotRecommendBean hotRecommendBean1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recommendfragment_layout, container, false);
         initView(view);
-
-        mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        userDao = MyApp.getInstances().getDaoSession().getUserDao();
+        mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mSrlRecommend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -81,11 +93,57 @@ public class RecommendFragment extends Fragment implements RecommendControl {
         if (hotRecommendBean.getCode() != 200) {
             Toast.makeText(getActivity(), "" + hotRecommendBean.getMsg(), Toast.LENGTH_SHORT).show();
         } else {
-            if (hotRecommendBean.getData().getTopic() != null) {
-                adapter.getListHotData(hotRecommendBean.getData().getTopic());
+            Gson gson = new Gson();
+            String s = gson.toJson(hotRecommendBean);
+            if (s != null) {
+
+
+                if (userDao.loadAll().size() == 0) {
+                    mUser = new User((Long.valueOf(0)), "" + s);
+                    long insert = userDao.insert(mUser);
+                    if (insert != -1) {
+                        System.out.println("---------存儲成功");
+                        Toast.makeText(getActivity(), "存储成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        System.out.println("---------存儲失敗");
+                        Toast.makeText(getActivity(), "存储失败", Toast.LENGTH_SHORT).show();
+
+                    }
+                } else {
+                    List<User> users = userDao.loadAll();
+                    System.out.println("------長度" + users.size());
+                    for (int i = 0; i < users.size(); i++) {
+
+                        if (!users.get(i).getList().equals("" + mUser.getList())) {
+                            User user = new User((Long.valueOf(0)), "" + users.get(i).getList());
+                            userDao.update(user);
+                            System.out.println("---------進行修改");
+                        } else {
+                            System.out.println("---------存的內容不變");
+                            Toast.makeText(getActivity(), "值保持不变", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+//    }
+
+
+                }
+
+                List<User> users = userDao.loadAll();
+                if (users.size() > 0) {
+                    String list = users.get(0).getList();
+                    hotRecommendBean1 = gson.fromJson(list, HotRecommendBean.class);
+                    adapter.getListHotData(hotRecommendBean1.getData().getTopic());
+                } else {
+                    Toast.makeText(getActivity(), "数据库为空", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
 
         }
+
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)

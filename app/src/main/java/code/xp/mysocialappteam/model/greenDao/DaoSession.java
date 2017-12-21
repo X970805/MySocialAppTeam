@@ -1,0 +1,41 @@
+package code.xp.mysocialappteam.model.greenDao;
+
+import org.greenrobot.greendao.AbstractDao;
+import org.greenrobot.greendao.AbstractDaoSession;
+import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.identityscope.IdentityScopeType;
+import org.greenrobot.greendao.internal.DaoConfig;
+
+import java.util.Map;
+
+/**
+ * Created by 徐宏福 on 2017/12/19.
+ */
+
+public class DaoSession extends AbstractDaoSession {
+
+    private final DaoConfig userDaoConfig;
+
+    private final UserDao userDao;
+
+    public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
+            daoConfigMap) {
+        super(db);
+
+        userDaoConfig = daoConfigMap.get(UserDao.class).clone();
+        userDaoConfig.initIdentityScope(type);
+
+        userDao = new UserDao(userDaoConfig, this);
+
+        registerDao(User.class, userDao);
+    }
+
+    public void clear() {
+        userDaoConfig.getIdentityScope().clear();
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+}

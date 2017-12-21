@@ -232,7 +232,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
     }
 
     @Override
-    public void equipment(YKBean s) {
+    public void equipment( YKBean s) {
         if (s.getCode() != 200) {
             Toast.makeText(this, "" + s.getMsg(), Toast.LENGTH_SHORT).show();
         } else {

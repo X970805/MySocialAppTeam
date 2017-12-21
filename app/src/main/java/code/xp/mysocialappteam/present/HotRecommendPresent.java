@@ -38,7 +38,8 @@ public class HotRecommendPresent {
 
                          @Override
                          public void onNext(HotRecommendBean hotRecommendBean) {
-                                myControl.getHotRecommend(hotRecommendBean);
+                              myControl.getHotRecommend(hotRecommendBean);
+                              //  myControl.getHotRecommendData(hotRecommendBean);
                          }
 
                          @Override

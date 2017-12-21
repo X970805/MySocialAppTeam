@@ -11,5 +11,6 @@ public interface RecommendControl {
 
     void getMyArtical(MyArticleBean articleBean);
 
-    void  getHotRecommend(HotRecommendBean hotRecommendBean);
+  void  getHotRecommend(HotRecommendBean hotRecommendBean);
+  //  void getHotRecommendData(String s);
 }

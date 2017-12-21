@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 
 public class HotRecommendModel {
     public Observable<HotRecommendBean> getHotRecommend(String user, String flag, String fromUid, String page,String limit){
-//jhjl
+
         Retrofit myrxtrofit = MyApp.myrxtrofit();
         ApiInterface apiInterface = myrxtrofit.create(ApiInterface.class);
         Observable<HotRecommendBean> hotRecommendBeanObservable = apiInterface.getHotRecommendBean(user,flag,fromUid,page,limit);
