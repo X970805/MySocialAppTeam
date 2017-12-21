@@ -3,6 +3,7 @@ package code.xp.mysocialappteam.view.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,9 +28,8 @@ import code.xp.mysocialappteam.R;
 import code.xp.mysocialappteam.control.MyControl;
 import code.xp.mysocialappteam.present.MyPresent;
 import code.xp.mysocialappteam.utils.MyApp;
+import code.xp.mysocialappteam.utils.StatusBarCompat;
 import code.xp.mysocialappteam.view.adapter.RecommendFragmentAdapter;
-import code.xp.mysocialappteam.view.bean.HotRecommendBean;
-import code.xp.mysocialappteam.view.bean.MyArticleBean;
 import code.xp.mysocialappteam.view.bean.YKBean;
 import code.xp.mysocialappteam.view.fragment.AttentionFragment;
 import code.xp.mysocialappteam.view.fragment.RecommendFragment;
@@ -62,6 +62,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thrid);
+        StatusBarCompat.compat(this, Color.BLACK);
         initView();
         //    EventBus.getDefault().register(this);
 

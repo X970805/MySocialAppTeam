@@ -3,9 +3,11 @@ package code.xp.mysocialappteam;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import code.xp.mysocialappteam.utils.StatusBarCompat;
 import code.xp.mysocialappteam.view.activity.SecondActivity;
 import code.xp.mysocialappteam.view.activity.ThridActivity;
 
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme_Login);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StatusBarCompat.compat(this, Color.BLACK);
 
         tiaozhuan();
     }
