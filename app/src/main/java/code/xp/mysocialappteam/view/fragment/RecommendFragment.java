@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
 import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,13 +45,22 @@ public class RecommendFragment extends Fragment implements RecommendControl {
 
     private UserDao userDao;
     private HotRecommendBean hotRecommendBean1;
+    private Gson gson;
+    private User user;
+    private List<User> greendaoall;
+    private MyArticleBean myArticleBean;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recommendfragment_layout, container, false);
         initView(view);
+
         userDao = MyApp.getInstances().getDaoSession().getUserDao();
+        greendaoall = userDao.loadAll();
+        for (int i = 0; i <greendaoall.size() ; i++) {
+            System.out.println( "第一次------"+i+"--"+  greendaoall.get(i).getList());
+        }
         mRvRecommend.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mSrlRecommend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -60,7 +70,10 @@ public class RecommendFragment extends Fragment implements RecommendControl {
             }
         });
         adapter = new RecyclvAdapter(getActivity());
+
         mRvRecommend.setAdapter(adapter);
+
+        gson = new Gson();
         return view;
     }
 
@@ -77,80 +90,85 @@ public class RecommendFragment extends Fragment implements RecommendControl {
 
     @Override
     public void getMyArtical(MyArticleBean articleBean) {
-        if (articleBean.getCode() != 200) {
-            Toast.makeText(getActivity(), "" + articleBean.getMsg(), Toast.LENGTH_SHORT).show();
-        } else {
-            if (articleBean.getData().getArticle() != null) {
-                adapter.getListData(articleBean.getData().getArticle());
+        if (articleBean != null) {
+            if (articleBean.getCode() != 200) {
+                Toast.makeText(getActivity(), "" + articleBean.getMsg(), Toast.LENGTH_SHORT).show();
+            } else {
+
+                String s = gson.toJson(articleBean);
+                user = new User(Long.valueOf(0), s);
+
+                if (userDao.loadAll().size() == 0) {
+                 userDao.insert(user);
+
+              } else {
+                   if (!user.getList().equals(greendaoall.get(0).getList())) {
+                        userDao.update(user);
+                    }
+                }
+                for (int i = 0; i <greendaoall.size() ; i++) {
+                    System.out.println( "第二次--------"+  greendaoall.get(i).getList());
+                }
             }
 
         }
-
     }
 
     @Override
     public void getHotRecommend(HotRecommendBean hotRecommendBean) {
-        if (hotRecommendBean.getCode() != 200) {
-            Toast.makeText(getActivity(), "" + hotRecommendBean.getMsg(), Toast.LENGTH_SHORT).show();
-        } else {
-            Gson gson = new Gson();
-            String s = gson.toJson(hotRecommendBean);
-            if (s != null) {
+        System.out.println("------code--------"+hotRecommendBean.getCode());
+        if (hotRecommendBean != null) {
+            if (hotRecommendBean.getCode() != 200) {
+          return;
+           } else {
 
+                String s = gson.toJson( hotRecommendBean);
+                if (s != null) {
 
-                if (userDao.loadAll().size() == 0) {
-                    mUser = new User((Long.valueOf(0)), "" + s);
-                    long insert = userDao.insert(mUser);
-                    if (insert != -1) {
-                        System.out.println("---------存儲成功");
-                        Toast.makeText(getActivity(), "存储成功", Toast.LENGTH_SHORT).show();
+                    mUser = new User((Long.valueOf(1)), s);
+                    if (userDao.loadAll().size() ==1) {
+
+                        userDao.insert(mUser);
+
                     } else {
-                        System.out.println("---------存儲失敗");
-                        Toast.makeText(getActivity(), "存储失败", Toast.LENGTH_SHORT).show();
 
-                    }
-                } else {
-                    List<User> users = userDao.loadAll();
-                    System.out.println("------長度" + users.size());
-                    for (int i = 0; i < users.size(); i++) {
 
-                        if (!users.get(i).getList().equals("" + mUser.getList())) {
-                            User user = new User((Long.valueOf(0)), "" + users.get(i).getList());
-                            userDao.update(user);
-                            System.out.println("---------進行修改");
-                        } else {
-                            System.out.println("---------存的內容不變");
-                            Toast.makeText(getActivity(), "值保持不变", Toast.LENGTH_SHORT).show();
+                        for (int i = 0; i < greendaoall.size(); i++) {
+
+                            if (!greendaoall.get(0).getList().equals(mUser.getList())) {
+                                User user1 = new User((Long.valueOf(1)), greendaoall.get(i).getList());
+                                userDao.update(user1);}
+
                         }
 
+
                     }
-
-//    }
-
+                    for (int i = 0; i <greendaoall.size() ; i++) {
+                        System.out.println( "第三次--------"+  greendaoall.get(i).getList());
+                    }
+                    getMyWenZhang();
+                    getAdapter();
 
                 }
-
-                List<User> users = userDao.loadAll();
-                if (users.size() > 0) {
-                    String list = users.get(0).getList();
-                    hotRecommendBean1 = gson.fromJson(list, HotRecommendBean.class);
-                    adapter.getListHotData(hotRecommendBean1.getData().getTopic());
-                } else {
-                    Toast.makeText(getActivity(), "数据库为空", Toast.LENGTH_SHORT).show();
-                }
-
 
             }
+        } else {
+            if (greendaoall.size() > 0) {
+                getMyWenZhang();
+                getAdapter();
+            } else {
+                Toast.makeText(getActivity(), "请链接你的网络或者wife------为空", Toast.LENGTH_SHORT).show();
+            }
+
 
         }
-
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void getFromUid(String s) {
         ArticalPresent articalPresent = new ArticalPresent(this);
         articalPresent.setArticalModel("surfer", "index2", s, "1");
-        HotRecommendPresent hotRecommendPresent = new HotRecommendPresent(this);
+        HotRecommendPresent hotRecommendPresent = new HotRecommendPresent(getActivity(), this);
         hotRecommendPresent.setHotRecommendModel("surfer", "index", s, "1", "5");
     }
 
@@ -158,5 +176,43 @@ public class RecommendFragment extends Fragment implements RecommendControl {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void getAdapter() {
+
+        List<User> users = userDao.loadAll();
+        if (users.size() != 0) {
+            String list = users.get(1).getList();
+
+            hotRecommendBean1 = gson.fromJson(list, HotRecommendBean.class);
+            adapter.getListHotData(hotRecommendBean1.getData().getTopic());
+            adapter.notifyDataSetChanged();
+        } else {
+            for (int i=0;i<greendaoall.size();i++)
+            {
+                System.out.println("--------------------------------------------"+greendaoall.get(i).getList());
+            }
+            Toast.makeText(getActivity(), "数据库为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+    }
+
+    public void getMyWenZhang() {
+
+
+        if (greendaoall.size()>0) {
+
+            String list = greendaoall.get(0).getList();
+            MyArticleBean myArticleBean = gson.fromJson(list, MyArticleBean.class);
+            adapter.getListData(myArticleBean.getData().getArticle());
+            adapter.notifyDataSetChanged();
+        } else {
+           // Toast.makeText(getActivity(), "-------文章值不变", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
     }
 }

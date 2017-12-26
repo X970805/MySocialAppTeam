@@ -73,7 +73,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
             myPresent.setequipment(uuid);
         } else {
             initPermission();
-            //shouldRequest();
+            getquanxian();
 
         }
 
@@ -186,7 +186,7 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
         if (granted) {
             MyPresent myPresent = new MyPresent(this);
             String uuid = MyApp.getUuid(getBaseContext(), getContentResolver());
-            System.out.println("成功------------" + uuid);
+            //  System.out.println("成功------------" + uuid);
             myPresent.setequipment(uuid);
         } else {
             ActivityCompat.requestPermissions(ThridActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
@@ -233,11 +233,17 @@ public class ThridActivity extends AutoLayoutActivity implements MyControl, View
     }
 
     @Override
-    public void equipment( YKBean s) {
-        if (s.getCode() != 200) {
-            Toast.makeText(this, "" + s.getMsg(), Toast.LENGTH_SHORT).show();
+    public void equipment(YKBean s) {
+        if (s != null) {
+            if (s.getCode() != 200) {
+                Toast.makeText(this, "" + s.getMsg(), Toast.LENGTH_SHORT).show();
+            } else {
+                EventBus.getDefault().postSticky(s.getData().getSurfer_id() + "");
+            }
         } else {
-            EventBus.getDefault().postSticky(s.getData().getSurfer_id() + "");
+            EventBus.getDefault().postSticky(151 + "");
+
         }
     }
+
 }

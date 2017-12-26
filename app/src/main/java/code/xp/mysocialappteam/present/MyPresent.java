@@ -43,7 +43,8 @@ public class MyPresent {
 
                         @Override
                         public void onError(Throwable e) {
-                            System.out.println("onError"+e);
+                           // System.out.println("onError"+e);
+                            c.equipment(null);
                         }
 
                         @Override

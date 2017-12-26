@@ -1,6 +1,7 @@
 package code.xp.mysocialappteam.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -34,15 +35,18 @@ public class RecyclvAdapter extends RecyclerView.Adapter<RecyclvAdapter.Recommen
     public RecyclvAdapter(Context context) {
         this.context = context;
         adapter = new HomeHotAdapter(context);
+
     }
 
     public void getListData(List<MyArticleBean.DataBean.ArticleBean> list) {
         this.list = list;
+        System.out.println("-按时大大说-----------"+list.get(0).getTitle());
         notifyDataSetChanged();
     }
 
     public void getListHotData(List<HotRecommendBean.DataBean.TopicBean> listHot) {
         this.listHot = listHot;
+        System.out.println("------listhot-----"+listHot.get(0).getTitle());
         adapter.setHotListData(listHot);
         notifyDataSetChanged();
     }

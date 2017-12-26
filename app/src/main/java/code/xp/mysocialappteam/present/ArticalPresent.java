@@ -20,16 +20,17 @@ import io.reactivex.schedulers.Schedulers;
 public class ArticalPresent {
     private ArticalModel articalModel;
     private RecommendControl myControl;
+
     public ArticalPresent(RecommendControl c) {
         articalModel = new ArticalModel();
         this.myControl = c;
     }
 
-    public void setArticalModel(String user, String flag, String fromUid, String page){
-        Observable<MyArticleBean>  myArticleBeanObservable= articalModel.getMyArtical(user, flag, fromUid, page);
-        if (myArticleBeanObservable==null){
+    public void setArticalModel(String user, String flag, String fromUid, String page) {
+        Observable<MyArticleBean> myArticleBeanObservable = articalModel.getMyArtical(user, flag, fromUid, page);
+        if (myArticleBeanObservable == null) {
             return;
-        }else {
+        } else {
             myArticleBeanObservable.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<MyArticleBean>() {
@@ -40,12 +41,13 @@ public class ArticalPresent {
 
                         @Override
                         public void onNext(MyArticleBean articleBean) {
-                                 myControl.getMyArtical(articleBean);
+                            myControl.getMyArtical(articleBean);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            System.out.println("onError = "+ e );
+                            //    System.out.println("onError = "+ e );
+                            myControl.getMyArtical(null);
                         }
 
                         @Override
