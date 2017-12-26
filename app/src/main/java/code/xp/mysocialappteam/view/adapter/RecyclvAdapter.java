@@ -40,13 +40,11 @@ public class RecyclvAdapter extends RecyclerView.Adapter<RecyclvAdapter.Recommen
 
     public void getListData(List<MyArticleBean.DataBean.ArticleBean> list) {
         this.list = list;
-        System.out.println("-按时大大说-----------"+list.get(0).getTitle());
         notifyDataSetChanged();
     }
 
     public void getListHotData(List<HotRecommendBean.DataBean.TopicBean> listHot) {
         this.listHot = listHot;
-        System.out.println("------listhot-----"+listHot.get(0).getTitle());
         adapter.setHotListData(listHot);
         notifyDataSetChanged();
     }
@@ -58,7 +56,6 @@ public class RecyclvAdapter extends RecyclerView.Adapter<RecyclvAdapter.Recommen
             case 0:
                 view = View.inflate(context, R.layout.recommendfragment1_item, null);
                 break;
-
             case 1:
                 view = View.inflate(context, R.layout.recommendfragment2_item, null);
                 break;
@@ -95,6 +92,13 @@ public class RecyclvAdapter extends RecyclerView.Adapter<RecyclvAdapter.Recommen
             case 1:
                 holder.hot_recylv.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
                 holder.hot_recylv.setAdapter(adapter);
+
+                adapter.setLisner(new OnClickRecyclerListner() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+                });
                 break;
 
         }

@@ -42,14 +42,11 @@ public class RecommendFragment extends Fragment implements RecommendControl {
     private SwipeRefreshLayout mSrlRecommend;
     private RecyclvAdapter adapter;
     private User mUser;
-
     private UserDao userDao;
     private HotRecommendBean hotRecommendBean1;
     private Gson gson;
     private User user;
     private List<User> greendaoall;
-    private MyArticleBean myArticleBean;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -99,9 +96,9 @@ public class RecommendFragment extends Fragment implements RecommendControl {
                 user = new User(Long.valueOf(0), s);
 
                 if (userDao.loadAll().size() == 0) {
-                 userDao.insert(user);
-
-              } else {
+                    adapter.getListData(articleBean.getData().getArticle());
+                   userDao.insert(user);
+                }else {
                    if (!user.getList().equals(greendaoall.get(0).getList())) {
                         userDao.update(user);
                     }
@@ -110,47 +107,34 @@ public class RecommendFragment extends Fragment implements RecommendControl {
                     System.out.println( "第二次--------"+  greendaoall.get(i).getList());
                 }
             }
-
+            getMyWenZhang();
         }
     }
 
     @Override
     public void getHotRecommend(HotRecommendBean hotRecommendBean) {
-        System.out.println("------code--------"+hotRecommendBean.getCode());
         if (hotRecommendBean != null) {
             if (hotRecommendBean.getCode() != 200) {
-          return;
-           } else {
-
-                String s = gson.toJson( hotRecommendBean);
+                return;
+            } else {
+                String s = gson.toJson(hotRecommendBean);
                 if (s != null) {
-
                     mUser = new User((Long.valueOf(1)), s);
                     if (userDao.loadAll().size() ==1) {
-
+                        adapter.getListHotData(hotRecommendBean.getData().getTopic());
                         userDao.insert(mUser);
-
                     } else {
-
-
                         for (int i = 0; i < greendaoall.size(); i++) {
-
                             if (!greendaoall.get(0).getList().equals(mUser.getList())) {
                                 User user1 = new User((Long.valueOf(1)), greendaoall.get(i).getList());
                                 userDao.update(user1);}
-
                         }
-
-
                     }
                     for (int i = 0; i <greendaoall.size() ; i++) {
                         System.out.println( "第三次--------"+  greendaoall.get(i).getList());
                     }
-                    getMyWenZhang();
-                    getAdapter();
-
                 }
-
+                getAdapter();
             }
         } else {
             if (greendaoall.size() > 0) {
@@ -183,7 +167,6 @@ public class RecommendFragment extends Fragment implements RecommendControl {
         List<User> users = userDao.loadAll();
         if (users.size() != 0) {
             String list = users.get(1).getList();
-
             hotRecommendBean1 = gson.fromJson(list, HotRecommendBean.class);
             adapter.getListHotData(hotRecommendBean1.getData().getTopic());
             adapter.notifyDataSetChanged();
